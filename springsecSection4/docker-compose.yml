@@ -1,0 +1,16 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql
+    restart: unless-stopped               # always restart
+    environment:
+      MYSQL_DATABASE: easybank
+      MYSQL_USER: 'admin'               # sample is the name of user
+      MYSQL_PASSWORD: 'password'         # password for sample user
+      MYSQL_ROOT_PASSWORD: 'password'     # password for root user
+    ports:
+      - '3306:3306'                       # host port 3306 is mapper to docker port 3306
+    volumes:
+      - mysql-db:/var/lib/mysql
+volumes:
+  mysql-db:
