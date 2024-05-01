@@ -18,11 +18,13 @@ import java.util.List;
 @RestController
 public class LoginController {
 
-    @Autowired
-    private CustomerRepository customerRepository;
+    CustomerRepository customerRepository;
+    PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    public LoginController(CustomerRepository customerRepository, PasswordEncoder passwordEncoder) {
+        this.customerRepository = customerRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody Customer customer) {
@@ -49,7 +51,7 @@ public class LoginController {
     @RequestMapping("/user")
     public Customer getUserDetailsAfterLogin(Authentication authentication) {
         List<Customer> customers = customerRepository.findByEmail(authentication.getName());
-        if (customers.size() > 0) {
+        if (!customers.isEmpty()) {
             return customers.get(0);
         } else {
             return null;

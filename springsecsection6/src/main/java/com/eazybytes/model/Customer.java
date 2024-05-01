@@ -8,8 +8,14 @@ import org.hibernate.annotations.GenericGenerator;
 public class Customer {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO,generator="native")
-    @GenericGenerator(name = "native",strategy = "native")
+    @SequenceGenerator(
+            name = "customer_id_seq",
+            sequenceName = "customer_id_seq"
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "customer_id_seq"
+    )
     @Column(name = "customer_id")
     private int id;
 
