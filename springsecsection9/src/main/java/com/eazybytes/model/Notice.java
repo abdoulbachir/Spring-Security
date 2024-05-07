@@ -10,8 +10,14 @@ import org.hibernate.annotations.GenericGenerator;
 public class Notice {
 
 	@Id
-	@GeneratedValue(strategy= GenerationType.AUTO,generator="native")
-	@GenericGenerator(name = "native",strategy = "native")
+	@SequenceGenerator(
+			name = "notice_id_seq",
+			sequenceName = "notice_id_seq"
+	)
+	@GeneratedValue(
+			strategy = GenerationType.SEQUENCE,
+			generator = "notice_id_seq"
+	)
 	@Column(name = "notice_id")
 	private int noticeId;
 
